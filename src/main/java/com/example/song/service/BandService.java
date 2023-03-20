@@ -1,6 +1,6 @@
 package com.example.song.service;
 
-import com.example.song.controller.dto.BandFillableDTO;
+import com.example.song.controller.dto.BandDto;
 import org.springframework.http.ResponseEntity;
 
 public interface BandService {
@@ -8,9 +8,9 @@ public interface BandService {
 
     public ResponseEntity<?> getOneById(Integer ID);
 
-    public ResponseEntity<?> newOne(BandFillableDTO dto);
+    public ResponseEntity<?> createOne(BandDto dto);
 
-    public ResponseEntity<?> editOne(BandFillableDTO dto, Integer ID);
+    public ResponseEntity<?> editOne(BandDto dto, Integer ID);
 
     public ResponseEntity<?> deleteOne(Integer ID);
 }

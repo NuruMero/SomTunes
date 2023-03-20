@@ -1,6 +1,6 @@
 package com.example.song.service.impl;
 
-import com.example.song.controller.dto.BandFillableDTO;
+import com.example.song.controller.dto.BandDto;
 import com.example.song.controller.dto.converter.BandConverter;
 import com.example.song.entity.BandEntity;
 import com.example.song.repository.BandRepository;
@@ -39,7 +39,7 @@ public class BandServiceImpl implements BandService {
     }
 
     @Override
-    public ResponseEntity<?> newOne(BandFillableDTO dto) {
+    public ResponseEntity<?> createOne(BandDto dto) {
         BandEntity newBand = bandConverter.fromDTOtoEntity(dto);
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(bandRepo.save(newBand));
@@ -50,7 +50,7 @@ public class BandServiceImpl implements BandService {
     }
 
     @Override
-    public ResponseEntity<?> editOne(BandFillableDTO dto, Integer ID) {
+    public ResponseEntity<?> editOne(BandDto dto, Integer ID) {
         return bandRepo.findById(ID).map(band -> {
             band = bandConverter.fromDTOtoEntity(dto);
             band.setId(ID);

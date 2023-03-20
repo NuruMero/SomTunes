@@ -1,6 +1,6 @@
 package com.example.song.service;
 
-import com.example.song.controller.dto.SongFillableDTO;
+import com.example.song.controller.dto.SongDto;
 import org.springframework.http.ResponseEntity;
 
 public interface SongService {
@@ -9,9 +9,9 @@ public interface SongService {
 
     public ResponseEntity<?> getOneById(Integer ID);
 
-    public ResponseEntity<?> newOne(SongFillableDTO dto);
+    public ResponseEntity<?> createOne(SongDto dto);
 
-    public ResponseEntity<?> editOne(SongFillableDTO dto, Integer ID);
+    public ResponseEntity<?> editOne(SongDto dto, Integer ID);
 
     public ResponseEntity<?> deleteOne(Integer ID);
 }

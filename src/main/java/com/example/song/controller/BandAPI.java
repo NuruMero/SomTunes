@@ -1,6 +1,6 @@
 package com.example.song.controller;
 
-import com.example.song.controller.dto.BandFillableDTO;
+import com.example.song.controller.dto.BandDto;
 import com.example.song.utils.EndpointUrls;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,11 +18,11 @@ public interface BandAPI {
 
     //POST HTTP requests
     @PostMapping
-    public ResponseEntity<?> newOne(@RequestBody BandFillableDTO dto);
+    public ResponseEntity<?> createOne(@RequestBody BandDto dto);
 
     //PUT HTTP requests
     @PutMapping(EndpointUrls.requiresID)
-    public ResponseEntity<?> editOne(@RequestBody BandFillableDTO dto, @PathVariable Integer id);
+    public ResponseEntity<?> editOne(@RequestBody BandDto dto, @PathVariable Integer id);
 
     //DELETE HTTP requests
     @DeleteMapping(EndpointUrls.requiresID)

@@ -1,6 +1,6 @@
 package com.example.song.controller;
 
-import com.example.song.controller.dto.SongFillableDTO;
+import com.example.song.controller.dto.SongDto;
 import com.example.song.utils.EndpointUrls;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,11 +18,11 @@ public interface SongAPI {
 
     //POST HTTP requests
     @PostMapping
-    public ResponseEntity<?> newOne(@RequestBody SongFillableDTO dto);
+    public ResponseEntity<?> createOne(@RequestBody SongDto dto);
 
     //PUT HTTP requests
     @PutMapping(EndpointUrls.requiresID)
-    public ResponseEntity<?> editOne(@RequestBody SongFillableDTO dto, @PathVariable Integer id);
+    public ResponseEntity<?> editOne(@RequestBody SongDto dto, @PathVariable Integer id);
 
     //DELETE HTTP requests
     @DeleteMapping(EndpointUrls.requiresID)

@@ -4,18 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SongFillableDTO {
+public class BandDto {
 
     private String name;
-    private String genre;
-    private Date release;
-    private Float length;
-    private String lyrics;
-
-    private Integer band; //Band id
+    private String mainGenre;
+    private Set<String> members;
+    private String origin;
 }

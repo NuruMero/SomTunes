@@ -1,7 +1,7 @@
 package com.example.song.controller.impl;
 
 import com.example.song.controller.SongAPI;
-import com.example.song.controller.dto.SongFillableDTO;
+import com.example.song.controller.dto.SongDto;
 import com.example.song.service.SongService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -23,12 +23,12 @@ public class SongController implements SongAPI {
     }
 
     @Override
-    public ResponseEntity<?> newOne(SongFillableDTO dto) {
-        return songService.newOne(dto);
+    public ResponseEntity<?> createOne(SongDto dto) {
+        return songService.createOne(dto);
     }
 
     @Override
-    public ResponseEntity<?> editOne(SongFillableDTO dto, Integer id) {
+    public ResponseEntity<?> editOne(SongDto dto, Integer id) {
         return songService.editOne(dto, id);
     }
 

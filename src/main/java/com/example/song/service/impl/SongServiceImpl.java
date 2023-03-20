@@ -1,6 +1,6 @@
 package com.example.song.service.impl;
 
-import com.example.song.controller.dto.SongFillableDTO;
+import com.example.song.controller.dto.SongDto;
 import com.example.song.controller.dto.converter.SongConverter;
 import com.example.song.entity.BandEntity;
 import com.example.song.entity.SongEntity;
@@ -42,7 +42,7 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
-    public ResponseEntity<?> newOne(SongFillableDTO dto) {
+    public ResponseEntity<?> createOne(SongDto dto) {
         BandEntity band = bandRepo.findById(dto.getBand()).orElse(null);
         SongEntity newSong = songConverter.fromDTOtoEntity(dto);
         newSong.setBand(band);
@@ -58,7 +58,7 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
-    public ResponseEntity<?> editOne(SongFillableDTO dto, Integer ID) {
+    public ResponseEntity<?> editOne(SongDto dto, Integer ID) {
         //TODO
         return songRepo.findById(ID).map(song -> {
             BandEntity band = bandRepo.findById(dto.getBand()).orElse(null);

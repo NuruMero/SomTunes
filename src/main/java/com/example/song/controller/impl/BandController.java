@@ -1,7 +1,7 @@
 package com.example.song.controller.impl;
 
 import com.example.song.controller.BandAPI;
-import com.example.song.controller.dto.BandFillableDTO;
+import com.example.song.controller.dto.BandDto;
 import com.example.song.service.BandService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -23,12 +23,12 @@ public class BandController implements BandAPI {
     }
 
     @Override
-    public ResponseEntity<?> newOne(BandFillableDTO dto) {
-        return bandService.newOne(dto);
+    public ResponseEntity<?> createOne(BandDto dto) {
+        return bandService.createOne(dto);
     }
 
     @Override
-    public ResponseEntity<?> editOne(BandFillableDTO dto, Integer id) {
+    public ResponseEntity<?> editOne(BandDto dto, Integer id) {
         return bandService.editOne(dto, id);
     }
 
