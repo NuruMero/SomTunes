@@ -1,0 +1,22 @@
+version: '2'
+networks:
+  redproyecto1:
+    ipam:
+      config:
+        - subnet: 182.28.0.0/16
+          gateway: 182.28.0.1
+services:
+  db:
+    image: postgres
+    container_name: projectdb
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    networks:
+      redproyecto1:
+        ipv4_address: 182.28.0.11
+    ports:
+      - "5432:5432"
+    expose:
+      - 5432
