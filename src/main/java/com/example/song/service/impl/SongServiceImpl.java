@@ -43,18 +43,15 @@ public class SongServiceImpl implements SongService {
 
     @Override
     public ResponseEntity<?> createOne(SongDto dto) {
-        BandEntity band = bandRepo.findById(dto.getBand()).orElse(null);
         SongEntity newSong = songConverter.fromDTOtoEntity(dto);
-        newSong.setBand(band);
+        BandEntity band = bandRepo.findById(dto.getBand()).orElse(null);
         if (band != null) {
-            //Adding song to the related band
-            //TODO band.getSongs().add(newSong);
-            //TODO bandRepo.save(band);
+            band.setId(dto.getBand());
+            newSong.setBand(band);
+            return ResponseEntity.status(HttpStatus.CREATED).body(songRepo.save(newSong));
         } else {
-            System.out.println("ERROR: Band nonexistant!");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("ERROR: The specified Band doesn't exist in the database!");
         }
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(songRepo.save(newSong));
     }
 
     @Override

@@ -4,12 +4,14 @@ import lombok.Data;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
 @Entity(name="Band")
 @Table(name="Band")
-public class BandEntity {
+public class BandEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,6 +25,8 @@ public class BandEntity {
     @Column
     private String origin;
 
-    @OneToMany(mappedBy = "band", cascade = CascadeType.ALL)
-    private Set<SongEntity> songs;
+    @OneToMany(mappedBy = "band",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private Set<SongEntity> songs = new HashSet<>();
 }

@@ -4,12 +4,13 @@ import lombok.Data;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 @Data
 @Entity(name="Song")
 @Table(name="Song")
-public class SongEntity {
+public class SongEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,7 +26,6 @@ public class SongEntity {
     @Column
     private String lyrics;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="band")
+    @ManyToOne(fetch = FetchType.LAZY)
     private BandEntity band;
 }

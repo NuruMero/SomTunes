@@ -10,6 +10,9 @@ spring:
     username: postgres
     password: postgres
     continueOnError: true
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQL9Dialect
     hibernate:
