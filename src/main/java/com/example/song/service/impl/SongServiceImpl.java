@@ -1,7 +1,7 @@
 package com.example.song.service.impl;
 
 import com.example.song.controller.dto.SongDto;
-import com.example.song.controller.dto.converter.SongConverter;
+import com.example.song.controller.dto.mapper.SongMapper;
 import com.example.song.entity.BandEntity;
 import com.example.song.entity.SongEntity;
 import com.example.song.repository.BandRepository;
@@ -19,7 +19,7 @@ import java.util.List;
 public class SongServiceImpl implements SongService {
     private final SongRepository songRepo;
     private final BandRepository bandRepo;
-    private final SongConverter songConverter;
+    private final SongMapper mapper;
 
     @Override
     public ResponseEntity<?> findAll() {
@@ -43,7 +43,7 @@ public class SongServiceImpl implements SongService {
 
     @Override
     public ResponseEntity<?> createOne(SongDto dto) {
-        SongEntity newSong = songConverter.fromDTOtoEntity(dto);
+        SongEntity newSong = mapper.toEntity(dto);
         BandEntity band = bandRepo.findById(dto.getBand()).orElse(null);
         if (band != null) {
             band.setId(dto.getBand());
@@ -56,10 +56,9 @@ public class SongServiceImpl implements SongService {
 
     @Override
     public ResponseEntity<?> editOne(SongDto dto, Integer ID) {
-        //TODO
         return songRepo.findById(ID).map(song -> {
             BandEntity band = bandRepo.findById(dto.getBand()).orElse(null);
-            song = songConverter.fromDTOtoEntity(dto);
+            song = mapper.toEntity(dto);
             song.setId(ID);
             song.setBand(band);
             return ResponseEntity.ok((songRepo.save(song)));
@@ -68,7 +67,6 @@ public class SongServiceImpl implements SongService {
 
     @Override
     public ResponseEntity<?> deleteOne(Integer ID) {
-        //TODO
         if (songRepo.findById(ID).orElse(null) != null) {
             songRepo.deleteById(ID);
             return ResponseEntity.noContent().build();

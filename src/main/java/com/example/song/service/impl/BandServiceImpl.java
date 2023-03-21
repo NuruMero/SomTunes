@@ -1,7 +1,7 @@
 package com.example.song.service.impl;
 
 import com.example.song.controller.dto.BandDto;
-import com.example.song.controller.dto.converter.BandConverter;
+import com.example.song.controller.dto.mapper.BandMapper;
 import com.example.song.entity.BandEntity;
 import com.example.song.repository.BandRepository;
 import com.example.song.service.BandService;
@@ -16,7 +16,7 @@ import java.util.List;
 @Service
 public class BandServiceImpl implements BandService {
     private final BandRepository bandRepo;
-    private final BandConverter bandConverter;
+    private final BandMapper mapper;
 
     @Override
     public ResponseEntity<?> findAll() {
@@ -40,7 +40,7 @@ public class BandServiceImpl implements BandService {
 
     @Override
     public ResponseEntity<?> createOne(BandDto dto) {
-        BandEntity newBand = bandConverter.fromDTOtoEntity(dto);
+        BandEntity newBand = mapper.toEntity(dto);
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(bandRepo.save(newBand));
         } catch (Exception ex) {
@@ -52,7 +52,7 @@ public class BandServiceImpl implements BandService {
     @Override
     public ResponseEntity<?> editOne(BandDto dto, Integer ID) {
         return bandRepo.findById(ID).map(band -> {
-            band = bandConverter.fromDTOtoEntity(dto);
+            band = mapper.toEntity(dto);
             band.setId(ID);
             return ResponseEntity.ok((bandRepo.save(band)));
         }).orElseGet(() -> ResponseEntity.notFound().build());
