@@ -11,6 +11,7 @@ import java.sql.Date;
 @AllArgsConstructor
 public class SongDto {
 
+    private Integer id;
     private String name;
     private String genre;
     private Date release;

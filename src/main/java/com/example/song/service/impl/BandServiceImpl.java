@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -24,7 +25,9 @@ public class BandServiceImpl implements BandService {
         if (bandlist.isEmpty()) {
             return ResponseEntity.notFound().build();
         } else {
-            return ResponseEntity.ok(bandlist);
+            List<BandDto> dtoList = new ArrayList<>();
+            bandlist.forEach(band -> dtoList.add(mapper.toDto(band)));
+            return ResponseEntity.ok(dtoList);
         }
     }
 
@@ -34,12 +37,14 @@ public class BandServiceImpl implements BandService {
         if (band == null) {
             return ResponseEntity.notFound().build();
         } else {
-            return ResponseEntity.ok(band);
+            BandDto dto = mapper.toDto(band);
+            return ResponseEntity.ok(dto);
         }
     }
 
     @Override
     public ResponseEntity<?> createOne(BandDto dto) {
+        //TODO y el resto de métodos. Cambiar a DTO para el controller
         BandEntity newBand = mapper.toEntity(dto);
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(bandRepo.save(newBand));

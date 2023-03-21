@@ -10,7 +10,6 @@ import org.mapstruct.factory.Mappers;
 public interface SongMapper {
     SongMapper INSTANCE = Mappers.getMapper(SongMapper.class);
 
-    @Mapping(target = "id", ignore = true)
     @Mapping(target = "band", ignore = true)
     SongEntity toEntity(SongDto dto);
 

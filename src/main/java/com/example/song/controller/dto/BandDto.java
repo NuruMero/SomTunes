@@ -11,6 +11,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class BandDto {
 
+    private Integer id;
     private String name;
     private String mainGenre;
     private Set<String> members;

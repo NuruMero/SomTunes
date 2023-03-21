@@ -11,7 +11,6 @@ public interface BandMapper {
 
     BandMapper INSTANCE = Mappers.getMapper(BandMapper.class);
 
-    @Mapping(target = "id", ignore = true)
     @Mapping(target = "songs", ignore = true)
     BandEntity toEntity(BandDto dto);
 
