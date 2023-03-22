@@ -16,6 +16,9 @@ public interface SongAPI {
     @GetMapping(EndpointUrls.requiresID)
     public ResponseEntity<?> getOneById(@PathVariable Integer id);
 
+    @GetMapping(EndpointUrls.MadeBy + EndpointUrls.requiresID)
+    public ResponseEntity<?> getBandSongs(@PathVariable Integer id);
+
     //POST HTTP requests
     @PostMapping
     public ResponseEntity<?> createOne(@RequestBody SongDto dto);

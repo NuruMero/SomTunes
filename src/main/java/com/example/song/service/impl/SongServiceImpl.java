@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -27,7 +28,9 @@ public class SongServiceImpl implements SongService {
         if (songlist.isEmpty()) {
             return ResponseEntity.notFound().build();
         } else {
-            return ResponseEntity.ok(songlist);
+            List<SongDto> dtoList = new ArrayList<>();
+            songlist.forEach(song -> dtoList.add(mapper.toDto(song)));
+            return ResponseEntity.ok(dtoList);
         }
     }
 
@@ -37,7 +40,20 @@ public class SongServiceImpl implements SongService {
         if (song == null) {
             return ResponseEntity.notFound().build();
         } else {
-            return ResponseEntity.ok(song);
+            SongDto dto = mapper.toDto(song);
+            return ResponseEntity.ok(dto);
+        }
+    }
+
+    @Override
+    public ResponseEntity<?> getBandSongs(Integer ID) {
+        List<SongEntity> songlist = songRepo.findByBand(ID);
+        if (songlist.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            List<SongDto> dtoList = new ArrayList<>();
+            songlist.forEach(song -> dtoList.add(mapper.toDto(song)));
+            return ResponseEntity.ok(dtoList);
         }
     }
 
@@ -45,10 +61,15 @@ public class SongServiceImpl implements SongService {
     public ResponseEntity<?> createOne(SongDto dto) {
         SongEntity newSong = mapper.toEntity(dto);
         BandEntity band = bandRepo.findById(dto.getBand()).orElse(null);
+        if (dto.getBand() == null) {
+            songRepo.save(newSong);
+            return ResponseEntity.status(HttpStatus.CREATED).body(dto);
+        }
         if (band != null) {
             band.setId(dto.getBand());
             newSong.setBand(band);
-            return ResponseEntity.status(HttpStatus.CREATED).body(songRepo.save(newSong));
+            songRepo.save(newSong);
+            return ResponseEntity.status(HttpStatus.CREATED).body(dto);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("ERROR: The specified Band doesn't exist in the database!");
         }
@@ -61,7 +82,8 @@ public class SongServiceImpl implements SongService {
             song = mapper.toEntity(dto);
             song.setId(ID);
             song.setBand(band);
-            return ResponseEntity.ok((songRepo.save(song)));
+            songRepo.save(song);
+            return ResponseEntity.ok(dto);
         }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 

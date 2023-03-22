@@ -3,7 +3,9 @@ package com.example.song.service.impl;
 import com.example.song.controller.dto.BandDto;
 import com.example.song.controller.dto.mapper.BandMapper;
 import com.example.song.entity.BandEntity;
+import com.example.song.entity.SongEntity;
 import com.example.song.repository.BandRepository;
+import com.example.song.repository.SongRepository;
 import com.example.song.service.BandService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,7 @@ import java.util.List;
 @Service
 public class BandServiceImpl implements BandService {
     private final BandRepository bandRepo;
+    private final SongRepository songRepo;
     private final BandMapper mapper;
 
     @Override
@@ -44,13 +47,12 @@ public class BandServiceImpl implements BandService {
 
     @Override
     public ResponseEntity<?> createOne(BandDto dto) {
-        //TODO y el resto de métodos. Cambiar a DTO para el controller
         BandEntity newBand = mapper.toEntity(dto);
         try {
-            return ResponseEntity.status(HttpStatus.CREATED).body(bandRepo.save(newBand));
+            bandRepo.save(newBand);
+            return ResponseEntity.status(HttpStatus.CREATED).body(dto);
         } catch (Exception ex) {
-            System.out.println("ERROR: Duplicate name found. The entity already exists.");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("ERROR: Duplicate name found. The entity already exists.");
         }
     }
 
@@ -59,13 +61,18 @@ public class BandServiceImpl implements BandService {
         return bandRepo.findById(ID).map(band -> {
             band = mapper.toEntity(dto);
             band.setId(ID);
-            return ResponseEntity.ok((bandRepo.save(band)));
+            bandRepo.save(band);
+            return ResponseEntity.ok(dto);
         }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @Override
     public ResponseEntity<?> deleteOne(Integer ID) {
         if (bandRepo.findById(ID).orElse(null) != null) {
+            List<SongEntity> songlist = songRepo.findByBand(ID);
+            if (!songlist.isEmpty()) {
+                songlist.forEach(songRepo::delete);
+            }
             bandRepo.deleteById(ID);
             return ResponseEntity.noContent().build();
         } else {

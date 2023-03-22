@@ -9,6 +9,8 @@ public interface SongService {
 
     public ResponseEntity<?> getOneById(Integer ID);
 
+    public ResponseEntity<?> getBandSongs(Integer ID);
+
     public ResponseEntity<?> createOne(SongDto dto);
 
     public ResponseEntity<?> editOne(SongDto dto, Integer ID);

@@ -10,4 +10,5 @@ public class EndpointUrls {
 
     // Songs
     public static final String Songs = "/songs";
+    public static final String MadeBy = "/by";
 }

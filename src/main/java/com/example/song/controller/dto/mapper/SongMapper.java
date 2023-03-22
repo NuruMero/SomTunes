@@ -13,6 +13,6 @@ public interface SongMapper {
     @Mapping(target = "band", ignore = true)
     SongEntity toEntity(SongDto dto);
 
-    @Mapping(target = "band", ignore = true)
+    @Mapping(target = "band", source = "entity.band.id")
     SongDto toDto(SongEntity entity);
 }

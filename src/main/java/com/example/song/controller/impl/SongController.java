@@ -23,6 +23,11 @@ public class SongController implements SongAPI {
     }
 
     @Override
+    public ResponseEntity<?> getBandSongs(Integer id) {
+        return songService.getBandSongs(id);
+    }
+
+    @Override
     public ResponseEntity<?> createOne(SongDto dto) {
         return songService.createOne(dto);
     }
