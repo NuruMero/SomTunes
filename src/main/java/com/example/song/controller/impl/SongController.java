@@ -4,8 +4,11 @@ import com.example.song.controller.SongAPI;
 import com.example.song.controller.dto.SongDto;
 import com.example.song.service.SongService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -14,31 +17,60 @@ public class SongController implements SongAPI {
 
     @Override
     public ResponseEntity<?> findAll() {
-        return songService.findAll();
-    }
+        List<SongDto> songlist = songService.findAll();
+        if (songlist.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(songlist);
+        }    }
 
     @Override
     public ResponseEntity<?> getOneById(Integer id) {
-        return songService.getOneById(id);
+        SongDto dto = songService.getOneById(id);
+        if (dto == null) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(dto);
+        }
     }
 
     @Override
     public ResponseEntity<?> getBandSongs(Integer id) {
-        return songService.getBandSongs(id);
+        List<SongDto> songlist = songService.getBandSongs(id);
+        if (songlist.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(songlist);
+        }
     }
 
     @Override
     public ResponseEntity<?> createOne(SongDto dto) {
-        return songService.createOne(dto);
+        SongDto result = songService.createOne(dto);
+        if (result == null) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.status(HttpStatus.CREATED).body(result);
+        }
     }
 
     @Override
     public ResponseEntity<?> editOne(SongDto dto, Integer id) {
-        return songService.editOne(dto, id);
+        SongDto result = songService.editOne(dto, id);
+        if (result == null) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(result);
+        }
     }
 
     @Override
     public ResponseEntity<?> deleteOne(Integer id) {
-        return songService.deleteOne(id);
+        boolean result = songService.deleteOne(id);
+        if (!result) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.noContent().build();
+        }
     }
 }

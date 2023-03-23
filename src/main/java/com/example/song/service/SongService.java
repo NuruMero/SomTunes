@@ -1,19 +1,20 @@
 package com.example.song.service;
 
 import com.example.song.controller.dto.SongDto;
-import org.springframework.http.ResponseEntity;
+
+import java.util.List;
 
 public interface SongService {
 
-    public ResponseEntity<?> findAll();
+    public List<SongDto> findAll();
 
-    public ResponseEntity<?> getOneById(Integer ID);
+    public SongDto getOneById(Integer ID);
 
-    public ResponseEntity<?> getBandSongs(Integer ID);
+    public List<SongDto> getBandSongs(Integer ID);
 
-    public ResponseEntity<?> createOne(SongDto dto);
+    public SongDto createOne(SongDto dto);
 
-    public ResponseEntity<?> editOne(SongDto dto, Integer ID);
+    public SongDto editOne(SongDto dto, Integer ID);
 
-    public ResponseEntity<?> deleteOne(Integer ID);
+    public boolean deleteOne(Integer ID);
 }

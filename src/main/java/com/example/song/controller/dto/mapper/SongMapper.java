@@ -6,6 +6,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface SongMapper {
     SongMapper INSTANCE = Mappers.getMapper(SongMapper.class);
@@ -13,6 +15,12 @@ public interface SongMapper {
     @Mapping(target = "band", ignore = true)
     SongEntity toEntity(SongDto dto);
 
-    @Mapping(target = "band", source = "entity.band.id")
+    @Mapping(target = "band", ignore = true)
+    List<SongEntity> toEntityList(List<SongDto> listDto);
+
+    @Mapping(target = "band", source = "band.id")
     SongDto toDto(SongEntity entity);
+
+    @Mapping(target = "band", source = "band.id")
+    List<SongDto> toDtoList(List<SongEntity> entityList);
 }

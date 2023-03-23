@@ -3,9 +3,13 @@ package com.example.song.service;
 import com.example.song.controller.dto.BandDto;
 import com.example.song.controller.dto.mapper.BandMapper;
 import com.example.song.entity.BandEntity;
+import com.example.song.entity.SongEntity;
 import com.example.song.repository.BandRepository;
 import com.example.song.repository.SongRepository;
 import com.example.song.service.impl.BandServiceImpl;
+import com.example.song.utils.objectmothers.BandDtoMother;
+import com.example.song.utils.objectmothers.BandEntityMother;
+import com.example.song.utils.objectmothers.SongEntityMother;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,11 +17,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @ExtendWith(MockitoExtension.class)
 class BandServiceTest {
@@ -32,76 +33,112 @@ class BandServiceTest {
     @InjectMocks
     private BandServiceImpl bandService;
 
-    public BandDto setUpDto1() {
-        BandDto dto = new BandDto();
-        dto.setId(1);
-        dto.setName("Rhapsody of Fire");
-        dto.setOrigin("Thundercross");
-        Set<String> members = new HashSet<>();
-        members.add("Luca Turilli");
-        members.add("Alex Staropoli");
-        members.add("Roberto De Micheli");
-        members.add("Alessandro Sala");
-        members.add("Giacomo Voli");
-        members.add("Paolo Marchesich");
-        members.add("Fabio Lione (former)");
-        dto.setMembers(members);
-        dto.setMainGenre("Power Metal");
-        return dto;
-    }
+    @Test
+    void shouldReturnAllTest() {
+        List<BandEntity> expectedList = BandEntityMother.returnList();
+        List<BandDto> expectedDtoList = BandDtoMother.returnList();
 
-    public BandDto setUpDto2() {
-        BandDto dto = new BandDto();
-        dto.setName("Rammstein");
-        dto.setOrigin("Berlin, Germany");
-        Set<String> members = new HashSet<>();
-        members.add("Till Lindemann");
-        members.add("Richard Z. Kruspe");
-        members.add("Christoph Schneider");
-        dto.setMembers(members);
-        dto.setMainGenre("Industrial Metal");
-        return dto;
+        Mockito.when(mapper.toDtoList(expectedList))
+                .thenReturn(expectedDtoList);
+        Mockito.when(bandRepo.findAll())
+                .thenReturn(expectedList);
+
+        final List<BandDto> result = bandService.findAll();
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(expectedDtoList, result);
+        Mockito.verify(bandRepo).findAll();
+        Mockito.verify(mapper).toDtoList(expectedList);
     }
 
     @Test
-    void getOneById() {
-        /**
-        BandDto dto = setUpDto1();
-        BandEntity expectedEntity = mapper.toEntity(dto);
-        ResponseEntity<BandDto> expectedRE = ResponseEntity.ok(dto);
+    void shouldReturnOneByIdTest() {
+        BandEntity expectedEntity = BandEntityMother.returnOne();
+        BandDto dto = BandDtoMother.returnOne();
+
+        Mockito.when(mapper.toDto(expectedEntity))
+                .thenReturn(dto);
+        Mockito.when(bandRepo.findById(1))
+                .thenReturn(Optional.of(expectedEntity));
+
+        final BandDto result = bandService.getOneById(1);
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(dto, result);
+        Mockito.verify(bandRepo).findById(1);
+        Mockito.verify(mapper).toDto(expectedEntity);
+    }
+
+    @Test
+    void shouldReturnNewCreateOneTest() {
+        BandDto expectedDto = BandDtoMother.returnOne();
+        BandDto expectedDtoWithId = BandDtoMother.returnOne();
+        expectedDtoWithId.setId(1);
+
+        BandEntity expectedEntity = BandEntityMother.returnOne();
+        BandEntity expectedEntityWithId = BandEntityMother.returnOne();
+        expectedEntityWithId.setId(1);
+
+        Mockito.when(mapper.toEntity(expectedDto))
+                .thenReturn(expectedEntity);
+        Mockito.when(bandRepo.save(expectedEntity))
+                .thenReturn(expectedEntityWithId);
+        Mockito.when(mapper.toDto(expectedEntityWithId))
+                .thenReturn(expectedDtoWithId);
+
+        final BandDto result = bandService.createOne(expectedDto);
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(expectedDtoWithId, result);
+        Mockito.verify(mapper).toEntity(expectedDto);
+        Mockito.verify(bandRepo).save(expectedEntity);
+        Mockito.verify(mapper).toDto(expectedEntityWithId);
+
+    }
+
+    @Test
+    void shouldReturnEditOneTest() {
+        BandDto expectedDto = BandDtoMother.returnOne();
+        BandDto expectedExistingDto = BandDtoMother.returnOne();
+        expectedExistingDto.setId(1);
+        BandEntity expectedEntity = BandEntityMother.returnOne();
+        BandEntity expectedExistingEntity = BandEntityMother.returnOne();
+        expectedExistingEntity.setId(1);
 
         Mockito.when(bandRepo.findById(1))
-                .thenReturn(1);
-
-        final ResponseEntity<?> result = bandService.getOneById(1);
-
-        Assertions.assertNotNull(result);
-        Assertions.assertEquals(expectedRE, result);
-        Mockito.verify(bandRepo).findById(1);
-         **/
-    }
-
-    @Test
-    void createOne() {
-        BandDto dto = setUpDto1();
-        BandEntity expectedEntity = mapper.toEntity(dto);
-        ResponseEntity<BandDto> expectedRE = ResponseEntity.status(HttpStatus.CREATED).body(dto);
-
+                .thenReturn(Optional.of(expectedExistingEntity));
+        Mockito.when(mapper.toEntity(expectedDto))
+                .thenReturn(expectedEntity);
         Mockito.when(bandRepo.save(expectedEntity))
                 .thenReturn(expectedEntity);
+        Mockito.when(mapper.toDto(expectedExistingEntity))
+                .thenReturn(expectedExistingDto);
 
-        final ResponseEntity<?> result = bandService.createOne(dto);
+        final BandDto result = bandService.editOne(expectedDto, 1);
 
         Assertions.assertNotNull(result);
-        Assertions.assertEquals(expectedRE, result);
+        Assertions.assertEquals(expectedExistingDto, result);
+        Mockito.verify(bandRepo).findById(1);
+        Mockito.verify(mapper).toEntity(expectedDto);
         Mockito.verify(bandRepo).save(expectedEntity);
+        Mockito.verify(mapper).toDto(expectedEntity);
     }
 
     @Test
-    void editOne() {
-    }
+    void shouldReturnDeleteOneTest() {
+        BandEntity expectedEntity = BandEntityMother.returnOne();
+        List<SongEntity> songList = SongEntityMother.returnList();
 
-    @Test
-    void deleteOne() {
+        Mockito.when(bandRepo.findById(1))
+                .thenReturn(Optional.of(expectedEntity));
+        Mockito.when(songRepo.findByBand(1))
+                .thenReturn(songList);
+
+        final boolean result = bandService.deleteOne(1);
+
+        Assertions.assertTrue(result);
+        Mockito.verify(bandRepo).findById(1);
+        Mockito.verify(songRepo).findByBand(1);
+        Mockito.verify(bandRepo).deleteById(1);
     }
 }
