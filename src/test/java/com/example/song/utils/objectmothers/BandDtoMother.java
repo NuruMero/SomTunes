@@ -19,8 +19,18 @@ public class BandDtoMother {
         return dto;
     }
 
+    public static BandDto returnOneWithId() {
+        BandDto dto = returnOne();
+        dto.setId(1);
+        return dto;
+    }
+
     public static List<BandDto> returnList() {
         return Collections.singletonList(returnOne());
+    }
+
+    public static List<BandDto> returnListWithId() {
+        return Collections.singletonList(returnOneWithId());
     }
 
 }

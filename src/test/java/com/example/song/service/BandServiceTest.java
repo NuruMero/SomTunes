@@ -35,8 +35,8 @@ class BandServiceTest {
 
     @Test
     void shouldReturnAllTest() {
-        List<BandEntity> expectedList = BandEntityMother.returnList();
-        List<BandDto> expectedDtoList = BandDtoMother.returnList();
+        List<BandEntity> expectedList = BandEntityMother.returnListWithId();
+        List<BandDto> expectedDtoList = BandDtoMother.returnListWithId();
 
         Mockito.when(mapper.toDtoList(expectedList))
                 .thenReturn(expectedDtoList);
@@ -53,8 +53,8 @@ class BandServiceTest {
 
     @Test
     void shouldReturnOneByIdTest() {
-        BandEntity expectedEntity = BandEntityMother.returnOne();
-        BandDto dto = BandDtoMother.returnOne();
+        BandEntity expectedEntity = BandEntityMother.returnOneWithId();
+        BandDto dto = BandDtoMother.returnOneWithId();
 
         Mockito.when(mapper.toDto(expectedEntity))
                 .thenReturn(dto);
@@ -72,12 +72,10 @@ class BandServiceTest {
     @Test
     void shouldReturnNewCreateOneTest() {
         BandDto expectedDto = BandDtoMother.returnOne();
-        BandDto expectedDtoWithId = BandDtoMother.returnOne();
-        expectedDtoWithId.setId(1);
+        BandDto expectedDtoWithId = BandDtoMother.returnOneWithId();
 
         BandEntity expectedEntity = BandEntityMother.returnOne();
-        BandEntity expectedEntityWithId = BandEntityMother.returnOne();
-        expectedEntityWithId.setId(1);
+        BandEntity expectedEntityWithId = BandEntityMother.returnOneWithId();
 
         Mockito.when(mapper.toEntity(expectedDto))
                 .thenReturn(expectedEntity);
@@ -99,11 +97,9 @@ class BandServiceTest {
     @Test
     void shouldReturnEditOneTest() {
         BandDto expectedDto = BandDtoMother.returnOne();
-        BandDto expectedExistingDto = BandDtoMother.returnOne();
-        expectedExistingDto.setId(1);
+        BandDto expectedExistingDto = BandDtoMother.returnOneWithId();
         BandEntity expectedEntity = BandEntityMother.returnOne();
-        BandEntity expectedExistingEntity = BandEntityMother.returnOne();
-        expectedExistingEntity.setId(1);
+        BandEntity expectedExistingEntity = BandEntityMother.returnOneWithId();
 
         Mockito.when(bandRepo.findById(1))
                 .thenReturn(Optional.of(expectedExistingEntity));

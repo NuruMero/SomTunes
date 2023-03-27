@@ -36,8 +36,8 @@ class SongServiceTest {
 
     @Test
     void shouldReturnAllTest() {
-        List<SongEntity> expectedList = SongEntityMother.returnList();
-        List<SongDto> expectedDtoList = SongDtoMother.returnList();
+        List<SongEntity> expectedList = SongEntityMother.returnListWithId();
+        List<SongDto> expectedDtoList = SongDtoMother.returnListWithId();
 
         Mockito.when(mapper.toDtoList(expectedList))
                 .thenReturn(expectedDtoList);
@@ -54,8 +54,8 @@ class SongServiceTest {
 
     @Test
     void shouldReturnOneByIdTest() {
-        SongEntity expectedEntity = SongEntityMother.returnOne();
-        SongDto dto = SongDtoMother.returnOne();
+        SongEntity expectedEntity = SongEntityMother.returnOneWithId();
+        SongDto dto = SongDtoMother.returnOneWithId();
 
         Mockito.when(mapper.toDto(expectedEntity))
                 .thenReturn(dto);
@@ -72,8 +72,8 @@ class SongServiceTest {
 
     @Test
     void shouldReturnAllSongsOfABandTest() {
-        List<SongEntity> expectedList = SongEntityMother.returnList();
-        List<SongDto> expectedDtoList = SongDtoMother.returnList();
+        List<SongEntity> expectedList = SongEntityMother.returnListWithId();
+        List<SongDto> expectedDtoList = SongDtoMother.returnListWithId();
 
         Mockito.when(mapper.toDtoList(expectedList))
                 .thenReturn(expectedDtoList);
@@ -91,15 +91,12 @@ class SongServiceTest {
     @Test
     void shouldReturnNewCreateOneTest() {
         SongDto expectedDto = SongDtoMother.returnOne();
-        SongDto expectedDtoWithId = SongDtoMother.returnOne();
-        expectedDtoWithId.setId(1);
+        SongDto expectedDtoWithId = SongDtoMother.returnOneWithId();
 
         SongEntity expectedEntity = SongEntityMother.returnOne();
-        SongEntity expectedEntityWithId = SongEntityMother.returnOne();
-        expectedEntityWithId.setId(1);
+        SongEntity expectedEntityWithId = SongEntityMother.returnOneWithId();
 
-        BandEntity expectedBandWithId = BandEntityMother.returnOne();
-        expectedBandWithId.setId(1);
+        BandEntity expectedBandWithId = BandEntityMother.returnOneWithId();
 
         Mockito.when(bandRepo.findById(expectedDto.getBand()))
                 .thenReturn(Optional.of(expectedBandWithId));
@@ -123,15 +120,12 @@ class SongServiceTest {
     @Test
     void shouldReturnEditOneTest() {
         SongDto expectedDto = SongDtoMother.returnOne();
-        SongDto expectedExistingDto = SongDtoMother.returnOne();
-        expectedExistingDto.setId(1);
+        SongDto expectedExistingDto = SongDtoMother.returnOneWithId();
 
         SongEntity expectedEntity = SongEntityMother.returnOne();
-        SongEntity expectedExistingEntity = SongEntityMother.returnOne();
-        expectedExistingEntity.setId(1);
+        SongEntity expectedExistingEntity = SongEntityMother.returnOneWithId();
 
-        BandEntity expectedBandWithId = BandEntityMother.returnOne();
-        expectedBandWithId.setId(1);
+        BandEntity expectedBandWithId = BandEntityMother.returnOneWithId();
         expectedExistingEntity.setBand(expectedBandWithId);
 
         Mockito.when(songRepo.findById(1))
@@ -158,7 +152,7 @@ class SongServiceTest {
 
     @Test
     void shouldReturnDeleteOneTest() {
-        SongEntity expectedEntity = SongEntityMother.returnOne();
+        SongEntity expectedEntity = SongEntityMother.returnOneWithId();
 
         Mockito.when(songRepo.findById(1))
                 .thenReturn(Optional.of(expectedEntity));

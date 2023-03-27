@@ -19,7 +19,17 @@ public class SongEntityMother {
         return entity;
     }
 
+    public static SongEntity returnOneWithId() {
+        SongEntity entity = returnOne();
+        entity.setId(1);
+        return entity;
+    }
+
     public static List<SongEntity> returnList() {
         return Collections.singletonList(returnOne());
+    }
+
+    public static List<SongEntity> returnListWithId() {
+        return Collections.singletonList(returnOneWithId());
     }
 }

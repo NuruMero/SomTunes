@@ -19,7 +19,17 @@ public class SongDtoMother {
         return dto;
     }
 
+    public static SongDto returnOneWithId() {
+        SongDto dto = returnOne();
+        dto.setId(1);
+        return dto;
+    }
+
     public static List<SongDto> returnList() {
         return Collections.singletonList(returnOne());
+    }
+
+    public static List<SongDto> returnListWithId() {
+        return Collections.singletonList(returnOneWithId());
     }
 }

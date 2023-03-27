@@ -19,7 +19,17 @@ public class BandEntityMother {
         return band;
     }
 
+    public static BandEntity returnOneWithId() {
+        BandEntity band = returnOne();
+        band.setId(1);
+        return band;
+    }
+
     public static List<BandEntity> returnList() {
         return Collections.singletonList(returnOne());
+    }
+
+    public static List<BandEntity> returnListWithId() {
+        return Collections.singletonList(returnOneWithId());
     }
 }
