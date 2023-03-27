@@ -10,13 +10,12 @@ public class SongEntityMother {
 
     public static SongEntity returnOne() {
         SongEntity entity = new SongEntity();
-        entity.setId(1);
-        entity.setGenre("Power Metal");
-        entity.setName("Emerald Sword");
+        entity.setGenre("Industrial Metal");
+        entity.setName("Zick Zack");
         entity.setLyrics(null);
-        entity.setRelease(new Date(1998- 1 - 1));
-        entity.setLength(4.5F);
-        entity.setBand(null);
+        entity.setRelease(new Date(2022- 4 - 7));
+        entity.setLength(4.04F);
+        entity.setBand(BandEntityMother.returnOne());
         return entity;
     }
 

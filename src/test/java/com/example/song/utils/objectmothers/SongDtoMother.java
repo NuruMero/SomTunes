@@ -10,13 +10,12 @@ public class SongDtoMother {
 
     public static SongDto returnOne() {
         SongDto dto = new SongDto();
-        dto.setId(1);
-        dto.setGenre("Power Metal");
-        dto.setName("Emerald Sword");
+        dto.setGenre("Industrial Metal");
+        dto.setName("Zick Zack");
         dto.setLyrics(null);
-        dto.setRelease(new Date(1998- 1 - 1));
-        dto.setLength(4.5F);
-        dto.setBand(null);
+        dto.setRelease(new Date(2022- 4 - 7));
+        dto.setLength(4.04F);
+        dto.setBand(1);
         return dto;
     }
 

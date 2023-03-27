@@ -57,6 +57,7 @@ public class SongServiceImpl implements SongService {
             if (band == null) {
                 return null;
             }
+            song = mapper.toEntity(dto);
             song.setBand(band);
             song.setId(ID);
             return songRepo.save(song);
