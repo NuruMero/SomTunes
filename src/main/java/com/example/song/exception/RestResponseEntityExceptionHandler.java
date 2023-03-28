@@ -16,4 +16,9 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         String body = "ERROR: Illegal argument or state introduced in the API.";
         return handleExceptionInternal(ex, body, new HttpHeaders(), HttpStatus.CONFLICT, request);
     }
+
+    @ExceptionHandler(value = {DuplicatedUniqueObjectException.class})
+    public ResponseEntity<Object> duplicateUniqueObjectException(DuplicatedUniqueObjectException ex, WebRequest request) {
+        return handleExceptionInternal(ex, "ERROR#"+ex.getErrorCode()+": " +ex.getMessage(), new HttpHeaders(), HttpStatus.CONFLICT, request);
+    }
 }

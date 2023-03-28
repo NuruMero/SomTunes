@@ -2,6 +2,7 @@ package com.example.song.controller.impl;
 
 import com.example.song.controller.BandAPI;
 import com.example.song.controller.dto.BandDto;
+import com.example.song.exception.DuplicatedUniqueObjectException;
 import com.example.song.service.BandService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -36,17 +37,13 @@ public class BandController implements BandAPI {
     }
 
     @Override
-    public ResponseEntity<?> createOne(BandDto dto) {
+    public ResponseEntity<?> createOne(BandDto dto) throws DuplicatedUniqueObjectException {
         BandDto result = bandService.createOne(dto);
-        if (result == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("ERROR: Duplicate name found. The entity already exists.");
-        } else {
-            return ResponseEntity.status(HttpStatus.CREATED).body(result);
-        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
     @Override
-    public ResponseEntity<?> editOne(BandDto dto, Integer id) {
+    public ResponseEntity<?> editOne(BandDto dto, Integer id) throws DuplicatedUniqueObjectException {
         BandDto result = bandService.editOne(dto, id);
         if (result == null) {
             return ResponseEntity.notFound().build();

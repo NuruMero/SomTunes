@@ -4,6 +4,7 @@ import com.example.song.controller.dto.BandDto;
 import com.example.song.controller.dto.mapper.BandMapper;
 import com.example.song.entity.BandEntity;
 import com.example.song.entity.SongEntity;
+import com.example.song.exception.DuplicatedUniqueObjectException;
 import com.example.song.repository.BandRepository;
 import com.example.song.repository.SongRepository;
 import com.example.song.service.impl.BandServiceImpl;
@@ -70,7 +71,7 @@ class BandServiceTest {
     }
 
     @Test
-    void shouldReturnNewCreateOneTest() {
+    void shouldReturnNewCreateOneTest() throws DuplicatedUniqueObjectException {
         BandDto expectedDto = BandDtoMother.returnOne();
         BandDto expectedDtoWithId = BandDtoMother.returnOneWithId();
 
@@ -95,7 +96,7 @@ class BandServiceTest {
     }
 
     @Test
-    void shouldReturnEditOneTest() {
+    void shouldReturnEditOneTest() throws DuplicatedUniqueObjectException {
         BandDto expectedDto = BandDtoMother.returnOne();
         BandDto expectedExistingDto = BandDtoMother.returnOneWithId();
         BandEntity expectedEntity = BandEntityMother.returnOne();
