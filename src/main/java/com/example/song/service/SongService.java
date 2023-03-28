@@ -8,13 +8,13 @@ public interface SongService {
 
     public List<SongDto> findAll();
 
-    public SongDto getOneById(Integer ID);
+    public SongDto getById(Integer ID);
 
     public List<SongDto> getBandSongs(Integer ID);
 
-    public SongDto createOne(SongDto dto);
+    public SongDto create(SongDto dto);
 
-    public SongDto editOne(SongDto dto, Integer ID);
+    public SongDto edit(SongDto dto, Integer ID);
 
-    public boolean deleteOne(Integer ID);
+    public boolean delete(Integer ID);
 }

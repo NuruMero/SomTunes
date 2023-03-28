@@ -25,12 +25,12 @@ public class BandServiceImpl implements BandService {
     }
 
     @Override
-    public BandDto getOneById(Integer ID) {
+    public BandDto getById(Integer ID) {
         return mapper.toDto(bandRepo.findById(ID).orElse(null));
     }
 
     @Override
-    public BandDto createOne(BandDto dto) throws DuplicatedUniqueObjectException {
+    public BandDto create(BandDto dto) throws DuplicatedUniqueObjectException {
         try {
             return mapper.toDto(bandRepo.save(mapper.toEntity(dto)));
         } catch (Exception ex) {
@@ -39,7 +39,7 @@ public class BandServiceImpl implements BandService {
     }
 
     @Override
-    public BandDto editOne(BandDto dto, Integer ID) throws DuplicatedUniqueObjectException {
+    public BandDto edit(BandDto dto, Integer ID) throws DuplicatedUniqueObjectException {
         try {
             return mapper.toDto(bandRepo.findById(ID).map(band -> {
                 band = mapper.toEntity(dto);
@@ -53,7 +53,7 @@ public class BandServiceImpl implements BandService {
     }
 
     @Override
-    public boolean deleteOne(Integer ID) {
+    public boolean delete(Integer ID) {
         if (bandRepo.findById(ID).orElse(null) != null) {
             List<SongEntity> songlist = songRepo.findByBand(ID);
             if (!songlist.isEmpty()) {

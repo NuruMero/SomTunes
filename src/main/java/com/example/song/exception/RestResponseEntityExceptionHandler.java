@@ -18,7 +18,14 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     }
 
     @ExceptionHandler(value = {DuplicatedUniqueObjectException.class})
-    public ResponseEntity<Object> duplicateUniqueObjectException(DuplicatedUniqueObjectException ex, WebRequest request) {
+    protected ResponseEntity<Object> duplicateUniqueObjectException(DuplicatedUniqueObjectException ex, WebRequest request) {
         return handleExceptionInternal(ex, "ERROR#"+ex.getErrorCode()+": " +ex.getMessage(), new HttpHeaders(), HttpStatus.CONFLICT, request);
     }
+
+    /**
+    @ExceptionHandler(value = {MethodArgumentNotValidException.class})
+    protected ResponseEntity<Object> handleValidationExceptions(MethodArgumentNotValidException ex, WebRequest request) {
+        return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.CONFLICT, request);
+    }
+    */
 }

@@ -27,8 +27,8 @@ public class BandController implements BandAPI {
     }
 
     @Override
-    public ResponseEntity<?> getOneById(Integer id) {
-        BandDto dto = bandService.getOneById(id);
+    public ResponseEntity<?> getById(Integer id) {
+        BandDto dto = bandService.getById(id);
         if (dto == null) {
             return ResponseEntity.notFound().build();
         } else {
@@ -37,14 +37,14 @@ public class BandController implements BandAPI {
     }
 
     @Override
-    public ResponseEntity<?> createOne(BandDto dto) throws DuplicatedUniqueObjectException {
-        BandDto result = bandService.createOne(dto);
+    public ResponseEntity<?> create(BandDto dto) throws DuplicatedUniqueObjectException {
+        BandDto result = bandService.create(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
     @Override
-    public ResponseEntity<?> editOne(BandDto dto, Integer id) throws DuplicatedUniqueObjectException {
-        BandDto result = bandService.editOne(dto, id);
+    public ResponseEntity<?> edit(BandDto dto, Integer id) throws DuplicatedUniqueObjectException {
+        BandDto result = bandService.edit(dto, id);
         if (result == null) {
             return ResponseEntity.notFound().build();
         } else {
@@ -53,8 +53,8 @@ public class BandController implements BandAPI {
     }
 
     @Override
-    public ResponseEntity<?> deleteOne(Integer id) {
-        boolean result = bandService.deleteOne(id);
+    public ResponseEntity<?> delete(Integer id) {
+        boolean result = bandService.delete(id);
         if (!result) {
             return ResponseEntity.notFound().build();
         } else {

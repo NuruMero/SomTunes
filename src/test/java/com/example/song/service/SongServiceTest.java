@@ -62,7 +62,7 @@ class SongServiceTest {
         Mockito.when(songRepo.findById(1))
                 .thenReturn(Optional.of(expectedEntity));
 
-        final SongDto result = songService.getOneById(1);
+        final SongDto result = songService.getById(1);
 
         Assertions.assertNotNull(result);
         Assertions.assertEquals(dto, result);
@@ -107,7 +107,7 @@ class SongServiceTest {
         Mockito.when(mapper.toDto(expectedEntityWithId))
                 .thenReturn(expectedDtoWithId);
 
-        final SongDto result = songService.createOne(expectedDto);
+        final SongDto result = songService.create(expectedDto);
 
         Assertions.assertNotNull(result);
         Assertions.assertEquals(result, expectedDtoWithId);
@@ -139,7 +139,7 @@ class SongServiceTest {
         Mockito.when(mapper.toDto(expectedExistingEntity))
                 .thenReturn(expectedExistingDto);
 
-        final SongDto result = songService.editOne(expectedDto, 1);
+        final SongDto result = songService.edit(expectedDto, 1);
 
         Assertions.assertNotNull(result);
         Assertions.assertEquals(result, expectedExistingDto);
@@ -157,7 +157,7 @@ class SongServiceTest {
         Mockito.when(songRepo.findById(1))
                 .thenReturn(Optional.of(expectedEntity));
 
-        final boolean result = songService.deleteOne(1);
+        final boolean result = songService.delete(1);
 
         Assertions.assertTrue(result);
         Mockito.verify(songRepo).findById(1);

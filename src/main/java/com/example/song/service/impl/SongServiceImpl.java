@@ -25,7 +25,7 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
-    public SongDto getOneById(Integer ID) {
+    public SongDto getById(Integer ID) {
         return mapper.toDto(songRepo.findById(ID).orElse(null));
     }
 
@@ -35,7 +35,7 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
-    public SongDto createOne(SongDto dto) {
+    public SongDto create(SongDto dto) {
         if (dto.getBand() == null) {
             return null;
         }
@@ -51,7 +51,7 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
-    public SongDto editOne(SongDto dto, Integer ID) {
+    public SongDto edit(SongDto dto, Integer ID) {
         return mapper.toDto(songRepo.findById(ID).map(song -> {
             BandEntity band = bandRepo.findById(dto.getBand()).orElse(null);
             if (band == null) {
@@ -65,7 +65,7 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
-    public boolean deleteOne(Integer ID) {
+    public boolean delete(Integer ID) {
         if (songRepo.findById(ID).orElse(null) != null) {
             songRepo.deleteById(ID);
             return true;

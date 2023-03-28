@@ -25,8 +25,8 @@ public class SongController implements SongAPI {
         }    }
 
     @Override
-    public ResponseEntity<?> getOneById(Integer id) {
-        SongDto dto = songService.getOneById(id);
+    public ResponseEntity<?> getById(Integer id) {
+        SongDto dto = songService.getById(id);
         if (dto == null) {
             return ResponseEntity.notFound().build();
         } else {
@@ -45,8 +45,8 @@ public class SongController implements SongAPI {
     }
 
     @Override
-    public ResponseEntity<?> createOne(SongDto dto) {
-        SongDto result = songService.createOne(dto);
+    public ResponseEntity<?> create(SongDto dto) {
+        SongDto result = songService.create(dto);
         if (result == null) {
             return ResponseEntity.notFound().build();
         } else {
@@ -55,8 +55,8 @@ public class SongController implements SongAPI {
     }
 
     @Override
-    public ResponseEntity<?> editOne(SongDto dto, Integer id) {
-        SongDto result = songService.editOne(dto, id);
+    public ResponseEntity<?> edit(SongDto dto, Integer id) {
+        SongDto result = songService.edit(dto, id);
         if (result == null) {
             return ResponseEntity.notFound().build();
         } else {
@@ -65,8 +65,8 @@ public class SongController implements SongAPI {
     }
 
     @Override
-    public ResponseEntity<?> deleteOne(Integer id) {
-        boolean result = songService.deleteOne(id);
+    public ResponseEntity<?> delete(Integer id) {
+        boolean result = songService.delete(id);
         if (!result) {
             return ResponseEntity.notFound().build();
         } else {

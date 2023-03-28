@@ -8,11 +8,11 @@ import java.util.List;
 public interface BandService {
     public List<BandDto> findAll();
 
-    public BandDto getOneById(Integer ID);
+    public BandDto getById(Integer ID);
 
-    public BandDto createOne(BandDto dto) throws DuplicatedUniqueObjectException;
+    public BandDto create(BandDto dto) throws DuplicatedUniqueObjectException;
 
-    public BandDto editOne(BandDto dto, Integer ID) throws DuplicatedUniqueObjectException;
+    public BandDto edit(BandDto dto, Integer ID) throws DuplicatedUniqueObjectException;
 
-    public boolean deleteOne(Integer ID);
+    public boolean delete(Integer ID);
 }

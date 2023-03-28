@@ -62,7 +62,7 @@ class BandServiceTest {
         Mockito.when(bandRepo.findById(1))
                 .thenReturn(Optional.of(expectedEntity));
 
-        final BandDto result = bandService.getOneById(1);
+        final BandDto result = bandService.getById(1);
 
         Assertions.assertNotNull(result);
         Assertions.assertEquals(dto, result);
@@ -85,7 +85,7 @@ class BandServiceTest {
         Mockito.when(mapper.toDto(expectedEntityWithId))
                 .thenReturn(expectedDtoWithId);
 
-        final BandDto result = bandService.createOne(expectedDto);
+        final BandDto result = bandService.create(expectedDto);
 
         Assertions.assertNotNull(result);
         Assertions.assertEquals(expectedDtoWithId, result);
@@ -111,7 +111,7 @@ class BandServiceTest {
         Mockito.when(mapper.toDto(expectedExistingEntity))
                 .thenReturn(expectedExistingDto);
 
-        final BandDto result = bandService.editOne(expectedDto, 1);
+        final BandDto result = bandService.edit(expectedDto, 1);
 
         Assertions.assertNotNull(result);
         Assertions.assertEquals(expectedExistingDto, result);
@@ -131,7 +131,7 @@ class BandServiceTest {
         Mockito.when(songRepo.findByBand(1))
                 .thenReturn(songList);
 
-        final boolean result = bandService.deleteOne(1);
+        final boolean result = bandService.delete(1);
 
         Assertions.assertTrue(result);
         Mockito.verify(bandRepo).findById(1);
