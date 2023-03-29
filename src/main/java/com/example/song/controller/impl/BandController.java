@@ -7,12 +7,14 @@ import com.example.song.service.BandService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
+@Validated
 public class BandController implements BandAPI {
     private final BandService bandService;
 

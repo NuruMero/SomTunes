@@ -3,8 +3,8 @@ package com.example.song.controller;
 import com.example.song.controller.dto.BandDto;
 import com.example.song.exception.DuplicatedUniqueObjectException;
 import com.example.song.utils.EndpointUrls;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
@@ -16,17 +16,17 @@ public interface BandAPI {
     public ResponseEntity<?> findAll();
 
     @GetMapping(EndpointUrls.requiresID)
-    public ResponseEntity<?> getById(@Validated @PathVariable Integer id);
+    public ResponseEntity<?> getById(@PathVariable Integer id);
 
     //POST HTTP requests
     @PostMapping
-    public ResponseEntity<?> create(@Validated @RequestBody BandDto dto) throws DuplicatedUniqueObjectException;
+    public ResponseEntity<?> create(@Valid @RequestBody BandDto dto) throws DuplicatedUniqueObjectException;
 
     //PUT HTTP requests
     @PutMapping(EndpointUrls.requiresID)
-    public ResponseEntity<?> edit(@Validated @RequestBody BandDto dto, @Validated @PathVariable Integer id) throws DuplicatedUniqueObjectException;
+    public ResponseEntity<?> edit(@Valid @RequestBody BandDto dto, @PathVariable Integer id) throws DuplicatedUniqueObjectException;
 
     //DELETE HTTP requests
     @DeleteMapping(EndpointUrls.requiresID)
-    public ResponseEntity<?> delete(@Validated @PathVariable Integer id);
+    public ResponseEntity<?> delete(@PathVariable Integer id);
 }

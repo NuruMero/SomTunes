@@ -1,5 +1,6 @@
 package com.example.song.entity;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 import jakarta.persistence.*;
@@ -17,6 +18,7 @@ public class BandEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     @Column(unique = true)
+    @NotBlank
     private String name;
     @Column
     private String mainGenre;
