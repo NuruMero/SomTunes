@@ -8,6 +8,7 @@ import com.example.song.repository.BandRepository;
 import com.example.song.repository.SongRepository;
 import com.example.song.service.BandService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.NonTransientDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,7 +34,7 @@ public class BandServiceImpl implements BandService {
     public BandDto create(BandDto dto) throws DuplicatedUniqueObjectException {
         try {
             return mapper.toDto(bandRepo.save(mapper.toEntity(dto)));
-        } catch (Exception ex) {
+        } catch (NonTransientDataAccessException ex) {
             throw new DuplicatedUniqueObjectException("Duplicate name found in creation. The entity already exists.", ex, 1);
         }
     }
@@ -47,7 +48,7 @@ public class BandServiceImpl implements BandService {
                 bandRepo.save(band);
                 return band;
             }).orElse(null));
-        } catch (Exception ex) {
+        } catch (NonTransientDataAccessException ex) {
             throw new DuplicatedUniqueObjectException("Duplicate name found in update. The entity already exists.", ex, 2);
         }
     }

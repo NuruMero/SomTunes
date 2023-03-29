@@ -17,7 +17,7 @@ public class SongEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     @Column
-    @NotBlank
+    @NotBlank(message = "Song name is required")
     private String name;
     @Column
     private String genre;

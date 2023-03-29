@@ -18,7 +18,7 @@ public class BandEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     @Column(unique = true)
-    @NotBlank
+    @NotBlank(message = "Band name is required")
     private String name;
     @Column
     private String mainGenre;
