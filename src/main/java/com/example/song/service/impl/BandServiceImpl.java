@@ -31,6 +31,11 @@ public class BandServiceImpl implements BandService {
     }
 
     @Override
+    public BandDto getByName(String name) {
+        return mapper.toDto(bandRepo.findByName(name));
+    }
+
+    @Override
     public BandDto create(BandDto dto) throws DuplicatedUniqueObjectException {
         try {
             return mapper.toDto(bandRepo.save(mapper.toEntity(dto)));

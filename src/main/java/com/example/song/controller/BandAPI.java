@@ -18,6 +18,9 @@ public interface BandAPI {
     @GetMapping(EndpointUrls.requiresID)
     public ResponseEntity<?> getById(@PathVariable Integer id);
 
+    @GetMapping(EndpointUrls.requiresText)
+    public ResponseEntity<?> getByName(@PathVariable String name);
+
     //POST HTTP requests
     @PostMapping
     public ResponseEntity<?> create(@Valid @RequestBody BandDto dto) throws DuplicatedUniqueObjectException;

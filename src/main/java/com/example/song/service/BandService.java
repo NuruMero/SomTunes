@@ -10,6 +10,8 @@ public interface BandService {
 
     public BandDto getById(Integer ID);
 
+    public BandDto getByName(String name);
+
     public BandDto create(BandDto dto) throws DuplicatedUniqueObjectException;
 
     public BandDto edit(BandDto dto, Integer ID) throws DuplicatedUniqueObjectException;

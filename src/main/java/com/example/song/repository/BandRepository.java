@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BandRepository extends JpaRepository<BandEntity, Integer> {
+
+    BandEntity findByName(String name);
 }
