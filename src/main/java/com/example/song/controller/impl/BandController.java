@@ -41,11 +41,7 @@ public class BandController implements BandAPI {
     @Override
     public ResponseEntity<?> getByName(String name) {
         BandDto dto = bandService.getByName(name);
-        if (dto == null) {
-            return ResponseEntity.ok(new BandDto());
-        } else {
-            return ResponseEntity.ok(dto);
-        }
+        return ResponseEntity.ok(dto);
     }
 
     @Override

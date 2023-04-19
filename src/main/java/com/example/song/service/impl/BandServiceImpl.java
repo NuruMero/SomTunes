@@ -2,6 +2,7 @@ package com.example.song.service.impl;
 
 import com.example.song.controller.dto.BandDto;
 import com.example.song.controller.dto.mapper.BandMapper;
+import com.example.song.entity.BandEntity;
 import com.example.song.entity.SongEntity;
 import com.example.song.exception.DuplicatedUniqueObjectException;
 import com.example.song.repository.BandRepository;
@@ -12,6 +13,7 @@ import org.springframework.dao.NonTransientDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @RequiredArgsConstructor
 @Service
@@ -32,7 +34,11 @@ public class BandServiceImpl implements BandService {
 
     @Override
     public BandDto getByName(String name) {
-        return mapper.toDto(bandRepo.findByName(name));
+        BandEntity entity = bandRepo.findByName(name);
+        if(Objects.isNull(entity)) {
+            return new BandDto();
+        }
+        return mapper.toDto(entity);
     }
 
     @Override
