@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.Date;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -44,6 +45,20 @@ public class SongController implements SongAPI {
         } else {
             return ResponseEntity.ok(songlist);
         }
+    }
+
+    @Override
+    public ResponseEntity<?> filterSongs(
+            String name,
+            String genre,
+            Date release_min,
+            Date release_max,
+            Float length,
+            String lyrics,
+            Integer band
+    ) {
+        List<SongDto> dtoList = songService.filterSongs(name, genre, release_min, release_max, length, lyrics, band);
+        return ResponseEntity.ok(dtoList);
     }
 
     @Override

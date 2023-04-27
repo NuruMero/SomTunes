@@ -45,6 +45,16 @@ public class BandController implements BandAPI {
     }
 
     @Override
+    public ResponseEntity<?> filterBands(
+            String name,
+            String mainGenre,
+            String origin
+    ) {
+        List<BandDto> dtoList = bandService.filterBands(name, mainGenre, origin);
+        return ResponseEntity.ok(dtoList);
+    }
+
+    @Override
     public ResponseEntity<?> create(BandDto dto) throws DuplicatedUniqueObjectException {
         BandDto result = bandService.create(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);

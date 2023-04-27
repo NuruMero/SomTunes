@@ -6,6 +6,8 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
+
 @CrossOrigin
 @RequestMapping(EndpointUrls.Base + EndpointUrls.Songs)
 public interface SongAPI {
@@ -19,6 +21,17 @@ public interface SongAPI {
 
     @GetMapping(EndpointUrls.MadeBy + EndpointUrls.requiresID)
     public ResponseEntity<?> getBandSongs(@PathVariable Integer id);
+
+    @GetMapping(EndpointUrls.search)
+    public ResponseEntity<?> filterSongs(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String genre,
+            @RequestParam(required = false) Date release_min,
+            @RequestParam(required = false) Date release_max,
+            @RequestParam(required = false) Float length,
+            @RequestParam(required = false) String lyrics,
+            @RequestParam(required = false) Integer band
+            );
 
     //POST HTTP requests
     @PostMapping

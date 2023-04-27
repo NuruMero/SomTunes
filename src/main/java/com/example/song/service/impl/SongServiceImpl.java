@@ -1,6 +1,7 @@
 package com.example.song.service.impl;
 
 import com.example.song.controller.dto.SongDto;
+import com.example.song.controller.dto.filters.FilterSongDto;
 import com.example.song.controller.dto.mapper.SongMapper;
 import com.example.song.entity.BandEntity;
 import com.example.song.entity.SongEntity;
@@ -10,6 +11,7 @@ import com.example.song.service.SongService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -32,6 +34,19 @@ public class SongServiceImpl implements SongService {
     @Override
     public List<SongDto> getBandSongs(Integer ID) {
         return mapper.toDtoList(songRepo.findByBand(ID));
+    }
+
+    @Override
+    public List<SongDto> filterSongs(
+            String name,
+            String genre,
+            Date release_min,
+            Date release_max,
+            Float length,
+            String lyrics,
+            Integer band
+    ) {
+        return mapper.toDtoList(songRepo.filterSongs(new FilterSongDto(name, genre, release_min, release_max, length, lyrics, band)));
     }
 
     @Override

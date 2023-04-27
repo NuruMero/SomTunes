@@ -12,6 +12,12 @@ public interface BandService {
 
     public BandDto getByName(String name);
 
+    public List<BandDto> filterBands(
+            String name,
+            String mainGenre,
+            String origin
+    );
+
     public BandDto create(BandDto dto) throws DuplicatedUniqueObjectException;
 
     public BandDto edit(BandDto dto, Integer ID) throws DuplicatedUniqueObjectException;

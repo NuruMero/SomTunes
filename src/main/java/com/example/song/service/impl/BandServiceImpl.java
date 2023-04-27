@@ -1,6 +1,7 @@
 package com.example.song.service.impl;
 
 import com.example.song.controller.dto.BandDto;
+import com.example.song.controller.dto.filters.FilterBandDto;
 import com.example.song.controller.dto.mapper.BandMapper;
 import com.example.song.entity.BandEntity;
 import com.example.song.entity.SongEntity;
@@ -39,6 +40,15 @@ public class BandServiceImpl implements BandService {
             return new BandDto();
         }
         return mapper.toDto(entity);
+    }
+
+    @Override
+    public List<BandDto> filterBands(
+            String name,
+            String mainGenre,
+            String origin
+    ) {
+        return mapper.toDtoList(bandRepo.filterBands(new FilterBandDto(name, mainGenre, origin)));
     }
 
     @Override
