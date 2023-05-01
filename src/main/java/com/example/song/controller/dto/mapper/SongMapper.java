@@ -8,6 +8,9 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
+/**
+ * Interfaz de MapStruct para crear mappers que pasen Entities de Canciones a DTOs.
+ */
 @Mapper(componentModel = "spring")
 public interface SongMapper {
     SongMapper INSTANCE = Mappers.getMapper(SongMapper.class);

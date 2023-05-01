@@ -5,8 +5,11 @@ import com.example.song.controller.dto.SongDto;
 import java.sql.Date;
 import java.util.List;
 
+/**
+ * Interfaz de lógica principal para Canciones.
+ * Contiene el CRUD básico y un método de filtrado.
+ */
 public interface SongService {
-
     public List<SongDto> findAll();
 
     public SongDto getById(Integer ID);

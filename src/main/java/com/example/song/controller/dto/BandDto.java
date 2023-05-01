@@ -6,6 +6,10 @@ import lombok.NoArgsConstructor;
 
 import java.util.Set;
 
+/**
+ * Data Transfer Object de Bandas.
+ * Se utilizará para evitar filtrar información de las Entities.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

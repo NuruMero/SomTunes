@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * DTO utilizado para el filtrado de Bandas en búsqueda por parámetros.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

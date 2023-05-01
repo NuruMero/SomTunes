@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 
 import java.sql.Date;
 
+/**
+ * DTO utilizado para el filtrado de Canciones en búsqueda por parámetros.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

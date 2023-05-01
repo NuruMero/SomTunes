@@ -7,6 +7,9 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * Interfaz de manejo de peticiones para Bandas.
+ */
 @CrossOrigin
 @RequestMapping(EndpointUrls.Base + EndpointUrls.Bands)
 public interface BandAPI {

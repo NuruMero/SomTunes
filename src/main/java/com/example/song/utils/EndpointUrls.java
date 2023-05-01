@@ -1,5 +1,9 @@
 package com.example.song.utils;
 
+/**
+ * Contiene las strings de los enlaces para las peticiones.
+ * Editar una de las strings aquí cambiará también los enlaces de la API.
+ */
 public class EndpointUrls {
     // Generic
     public static final String Base = "/api";

@@ -8,6 +8,13 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
 
+/**
+ * Clase de Entidad para Canciones.
+ *
+ * Define las entidades de la base de datos a través de la anotación @Entity.
+ * Tiene como obligatorios los atributos de 'id' y 'name'.
+ * Una canción puede pertenecer a una sola banda.
+ */
 @Data
 @Entity(name="Song")
 @Table(name="Song")

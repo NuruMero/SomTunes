@@ -5,6 +5,10 @@ import com.example.song.exception.DuplicatedUniqueObjectException;
 
 import java.util.List;
 
+/**
+ * Interfaz de lógica principal para Bandas.
+ * Contiene el CRUD básico y un método de filtrado.
+ */
 public interface BandService {
     public List<BandDto> findAll();
 

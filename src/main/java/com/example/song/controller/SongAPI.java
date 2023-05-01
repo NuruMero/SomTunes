@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 
+/**
+ * Interfaz de manejo de peticiones para Canciones.
+ */
 @CrossOrigin
 @RequestMapping(EndpointUrls.Base + EndpointUrls.Songs)
 public interface SongAPI {

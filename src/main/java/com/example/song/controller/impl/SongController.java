@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.sql.Date;
 import java.util.List;
 
+/**
+ * Implementación de la API de Canciones.
+ */
 @RequiredArgsConstructor
 @RestController
 @Validated

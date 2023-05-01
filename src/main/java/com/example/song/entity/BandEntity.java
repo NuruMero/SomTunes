@@ -9,6 +9,13 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Clase de Entidad para Bandas.
+ *
+ * Define las entidades de la base de datos a través de la anotación @Entity.
+ * Tiene como obligatorios los atributos de 'id' y 'name'.
+ * Una banda puede tener varias canciones.
+ */
 @Data
 @Entity(name="Band")
 @Table(name="Band")

@@ -6,6 +6,10 @@ import lombok.NoArgsConstructor;
 
 import java.sql.Date;
 
+/**
+ * Data Transfer Object de Canciones.
+ * Se utilizará para evitar filtrar información de las Entities.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

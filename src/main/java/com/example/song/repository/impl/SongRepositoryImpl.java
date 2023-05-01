@@ -14,11 +14,19 @@ import lombok.RequiredArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementación de la interfaz de peticiones personalizadas de canciones.
+ */
 @RequiredArgsConstructor
 public class SongRepositoryImpl implements SongRepositoryCustom {
 
     private final EntityManager entityManager;
 
+    /**
+     * Devuelve una lista de canciones según el objeto de filtrado.
+     * @param filter
+     * @return
+     */
     @Override
     public List<SongEntity> filterSongs(FilterSongDto filter) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();

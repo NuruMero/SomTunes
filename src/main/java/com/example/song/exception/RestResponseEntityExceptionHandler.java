@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+/**
+ * Manejador de excepciones generales.
+ */
 @RestControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
@@ -18,11 +21,23 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return handleExceptionInternal(ex, body, new HttpHeaders(), HttpStatus.CONFLICT, request);
     }
 
+    /**
+     * Lanza una excepción de objeto único duplicado.
+     * @param ex
+     * @param request
+     * @return ResponseEntity<Object>
+     */
     @ExceptionHandler(value = {DuplicatedUniqueObjectException.class})
     protected ResponseEntity<Object> duplicateUniqueObjectException(DuplicatedUniqueObjectException ex, WebRequest request) {
         return handleExceptionInternal(ex, "ERROR#"+ex.getErrorCode()+": " +ex.getMessage(), new HttpHeaders(), HttpStatus.CONFLICT, request);
     }
 
+    /**
+     * Lanza una excepción de violación de constraints.
+     * @param ex
+     * @param request
+     * @return
+     */
     @ExceptionHandler(value = {ConstraintViolationException.class})
     protected ResponseEntity<Object> handleConstraintViolationException(ConstraintViolationException ex, WebRequest request) {
         return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.BAD_REQUEST, request);

@@ -14,11 +14,19 @@ import org.hibernate.query.Query;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementación de la interfaz de peticiones personalizadas de bandas.
+ */
 @RequiredArgsConstructor
 public class BandRepositoryImpl implements BandRepositoryCustom {
 
     private final EntityManager entityManager;
 
+    /**
+     * Devuelve una lista de bandas según el objeto de filtrado.
+     * @param filter
+     * @return
+     */
     @Override
     public List<BandEntity> filterBands(FilterBandDto filter) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
