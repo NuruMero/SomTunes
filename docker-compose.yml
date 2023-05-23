@@ -19,8 +19,6 @@ services:
       retries: 5
   web:
     image: nurumero/somtunes:1
-    build:
-      context: .
     container_name: somtunes
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgres
@@ -28,9 +26,9 @@ services:
       - SPRING_DATASOURCE_PASSWORD=postgres
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
     ports:
-      - "8080:8080"
+      - "80:8080"
     expose:
-      - 8080
+      - 80
     depends_on:
       db:
         condition: service_healthy
